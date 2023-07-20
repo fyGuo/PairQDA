@@ -6,7 +6,6 @@
 #' @param mu_list A list of mean parameters
 #' @param var_list A list of variance-covariance matrices
 
-#' @export
 QDA_function <- function(x, prior = prior,
                          mu_list = mu_list,
                          var_list = var_list) {

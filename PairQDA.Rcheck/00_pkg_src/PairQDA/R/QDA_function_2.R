@@ -8,8 +8,6 @@
 #' @param var_list_1 A list of variance-covariance matrices for phenotype 1
 #' @param var_list_2 A list of variance-covariance matrices for phenotype 2
 
-#' @export
-
 QDA_function_2 <- function(x, prior = prior,
                            mu_list_1 = mu_list_1,
                            mu_list_2 = mu_list_2,
