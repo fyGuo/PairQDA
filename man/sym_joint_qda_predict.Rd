@@ -7,9 +7,8 @@
 sym_joint_qda_predict(
   qda_model = NA,
   test_data_X = NA,
-  Ear1_mark = "_1",
-  Ear2_mark = "_2",
-  number_features = 7
+  X1 = c("T500_1", "T1K_1", "T2K_1", "T3K_1", "T4K_1", "T6K_1", "T8K_1"),
+  X2 = c("T500_2", "T1K_2", "T2K_2", "T3K_2", "T4K_2", "T6K_2", "T8K_2")
 )
 }
 \arguments{
@@ -17,11 +16,9 @@ sym_joint_qda_predict(
 
 \item{test_data_X}{A vector of predictors from the test data}
 
-\item{Ear1_mark}{A character shows the last several letters to denote ear 1 label.}
+\item{X1}{A string of characters for the column names of predictor set 1.}
 
-\item{Ear2_mark}{A character shows the last several letters to denote ear 2 label.}
-
-\item{number_features}{Number of features (covariates) to fit the model for each ear.}
+\item{X2}{A string of characters for the column names of predictor set 2.}
 }
 \value{
 Predicted individual level phenotype
@@ -34,7 +31,8 @@ library(dplyr)
 library(mvtnorm)
 data(HearingLoss_simu)
 fit <- sym_joint_qda_fit(HearingLoss_simu,
-                  id = "id")
+                  id = "id",
+                  method = "separate")
 test_data_X <- HearingLoss_simu[1,] \%>\% dplyr::select(-"Label_1", -"Label_2",-"id")
 sym_joint_qda_predict(fit, test_data_X)
 }

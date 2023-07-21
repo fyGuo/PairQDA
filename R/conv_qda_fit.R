@@ -37,13 +37,13 @@ conv_qda_fit <- function(train_data,
 
   train_data_ear1 <- train_data_ear1[stats::complete.cases(train_data_ear1),]
 
-  colnames(train_data_ear1) <- c(paste0("S", 1:7), "Y")
+  colnames(train_data_ear1) <- c(paste0("S", 1:length(X1)), "Y")
 
   train_data_ear2 <- train_data  %>% dplyr::select(all_of(c(X2, Y2)))
 
   train_data_ear2 <- train_data_ear2[stats::complete.cases(train_data_ear2),]
 
-  colnames(train_data_ear2) <- c(paste0("S", 1:7), "Y")
+  colnames(train_data_ear2) <- c(paste0("S", 1:length(X1)), "Y")
 
 
   if (method == "pooled") {
