@@ -21,7 +21,8 @@
 #' library(MASS)
 #' data(HearingLoss_simu)
 #' fit <- sym_bayes_qda_fit(HearingLoss_simu,
-#'                   id = "id")
+#'                   id = "id",
+#'                   method = "pooled")
 #' test_data_X <- HearingLoss_simu[1,] %>% dplyr::select(-"Label_1", -"Label_2",-"id")
 #' sym_bayes_qda_predict(fit, test_data_X)
 
@@ -47,10 +48,10 @@ sym_bayes_qda_fit <- function(train_data,
   train_data_pooled <- rbind(train_data_ear1, train_data_ear2)
   # prior weights
   prior_ear1 <- train_data_ear1 %>%
-    summarise(prop1 = mean(Y == 1, na.rm = T),
-              prop2 = mean(Y == 2, na.rm = T),
-              prop3 = mean(Y == 3, na.rm = T),
-              prop4 = mean(Y == 4, na.rm = T))
+    summarise(prop1 = mean(.data[["Y"]] == 1, na.rm = T),
+              prop2 = mean(.data[["Y"]] == 2, na.rm = T),
+              prop3 = mean(.data[["Y"]] == 3, na.rm = T),
+              prop4 = mean(.data[["Y"]] == 4, na.rm = T))
 
   prior_ear1_conditional_ear2 <-
     table(train_data_ear1$Y, train_data_ear2$Y, dnn = c("Ear1", "Ear2")) %>%

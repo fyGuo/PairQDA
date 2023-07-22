@@ -19,30 +19,30 @@
 #' library(MASS)
 #' data(HearingLoss_simu)
 #' fit <- sym_bayes_qda_fit(HearingLoss_simu,
-#'                   id = "id")
+#'                   id = "id",
+#'                   method = "pooled")
 #' test_data_X <- HearingLoss_simu[1,] %>% dplyr::select(-"Label_1", -"Label_2",-"id")
 #' sym_bayes_qda_predict(fit, test_data_X)
 
 
 sym_bayes_qda_predict <- function(qda_model = NA,
                             test_data_X = NA,
-                            Ear1_mark = "_1",
-                            Ear2_mark = "_2",
-                            number_features = 7,
+                            X1 = c("T500_1", "T1K_1", "T2K_1", "T3K_1",
+                                   "T4K_1", "T6K_1", "T8K_1"),
+                            X2 = c("T500_2", "T1K_2", "T2K_2", "T3K_2",
+                                   "T4K_2", "T6K_2", "T8K_2"),
                             iter = 1000) {
 predict.qda <- getFromNamespace("predict.qda","MASS")
 
   # arrange the validation dataset
 
-  test_data_ear1_X <- test_data_X %>%
-    dplyr::select(ends_with(Ear1_mark))
+test_data_ear1_X <- test_data_X[,X1]
 
-  colnames(test_data_ear1_X) <- c(paste("S", 1:7, sep =""))
+colnames(test_data_ear1_X) <- c(paste("S", 1:length(X1), sep =""))
 
-  test_data_ear2_X <-test_data_X %>%
-    dplyr::select(ends_with(Ear2_mark))
+test_data_ear2_X <-test_data_X[,X2]
 
-  colnames(test_data_ear2_X) <- c(paste("S", 1:7, sep =""))
+colnames(test_data_ear2_X) <- c(paste("S", 1:length(X2), sep =""))
 
   ## Conduct iteration
   predict_ear_1 <- numeric(iter)
