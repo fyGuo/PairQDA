@@ -4,11 +4,10 @@
 #' @importFrom utils getFromNamespace
 #' @importFrom MASS qda
 
-#' @param qda_model A list output from sym_bayes_qda_fit
+#' @param qda_model A list output from sym_joint_qda_fit
 #' @param test_data_X A vector of predictors from the test data
-#' @param Ear1_mark A character shows the last several letters to denote ear 1 label.
-#' @param Ear2_mark A character shows the last several letters to denote ear 2 label.
-#' @param number_features Number of features (covariates) to fit the model for each ear.
+#' @param X1 A string of characters for the column names of predictor set 1.
+#' @param X2 A string of characters for the column names of predictor set 2.
 #' @param iter Number of interations set by users. The default is 1000 times
 #' @returns Predicted individual level phenotype
 #'
