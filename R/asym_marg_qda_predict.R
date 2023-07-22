@@ -2,11 +2,11 @@
 #' @import dplyr
 #' @import mvtnorm
 #'
-#' @param qda_model A list output from asym_marg_qda_fit
+#' @param qda_model A list output from sym_joint_qda_fit
 #' @param test_data_X A vector of predictors from the test data
-#' @param Ear1_mark A character shows the last several letters to denote ear 1 label.
-#' @param Ear2_mark A character shows the last several letters to denote ear 2 label.
-#' @param number_features Number of features (covariates) to fit the model for each ear.
+#' @param X1 A string of characters for the column names of predictor set 1.
+#' @param X2 A string of characters for the column names of predictor set 2.
+#'
 #' @returns Predicted individual level phenotype
 #'
 #' @export
@@ -16,26 +16,26 @@
 #' library(mvtnorm)
 #' data(HearingLoss_simu)
 #' fit <- asym_marg_qda_fit(HearingLoss_simu,
-#'                   id = "id")
+#'                   id = "id",
+#'                   method = "pooled")
 #' test_data_X <- HearingLoss_simu[1,] %>% dplyr::select(-"Label_1", -"Label_2",-"id")
 #' asym_marg_qda_predict(fit, test_data_X)
 
 
 asym_marg_qda_predict<- function(qda_model = NA,
-                                   test_data_X = NA,
-                                   Ear1_mark = "_1",
-                                   Ear2_mark = "_2",
-                                   number_features = 7) {
+                                 test_data_X = NA,
+                                 X1 = c("T500_1", "T1K_1", "T2K_1", "T3K_1",
+                                        "T4K_1", "T6K_1", "T8K_1"),
+                                 X2 = c("T500_2", "T1K_2", "T2K_2", "T3K_2",
+                                        "T4K_2", "T6K_2", "T8K_2")) {
 
-  test_data_ear1_X <- test_data_X %>%
-    dplyr::select(ends_with(Ear1_mark))
+  test_data_ear1_X <- test_data_X[,X1]
 
-  colnames(test_data_ear1_X) <- c(paste("S", 1:7, sep =""))
+  colnames(test_data_ear1_X) <- c(paste("S", 1:length(X1), sep =""))
 
-  test_data_ear2_X <-test_data_X %>%
-    dplyr::select(ends_with(Ear2_mark))
+  test_data_ear2_X <-test_data_X[,X2]
 
-  colnames(test_data_ear2_X) <- c(paste("S", 1:7, sep =""))
+  colnames(test_data_ear2_X) <- c(paste("S", 1:length(X2), sep =""))
 
 
   predict_ear_1<- QDA_function_2(test_data_ear1_X,
