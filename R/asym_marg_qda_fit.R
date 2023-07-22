@@ -109,7 +109,8 @@ asym_marg_qda_fit <- function(train_data,
               prop4 = mean(.data[["Y"]] == 4, na.rm = T))
 
   prior_ear2_conditional_ear1 <-
-    table(train_data_ear1$Y, train_data_ear2$Y, dnn = c("Ear1", "Ear2")) %>%
+    table(train_data[,Y1] %>% as.vector(),
+          train_data[,Y2] %>% as.vector(), dnn = c("Ear1", "Ear2")) %>%
     prop.table(margin = 1) %>%
     as.matrix()
 
