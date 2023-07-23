@@ -7,10 +7,12 @@
 asym_cond_qda_fit(
   train_data,
   id = "SID",
-  Ear1_mark = "_1",
-  Ear2_mark = "_2",
-  Y = "Label",
-  number_features = 7
+  Y1 = "Label_1",
+  Y2 = "Label_2",
+  X1 = c("T500_1", "T1K_1", "T2K_1", "T3K_1", "T4K_1", "T6K_1", "T8K_1"),
+  X2 = c("T500_2", "T1K_2", "T2K_2", "T3K_2", "T4K_2", "T6K_2", "T8K_2"),
+  method = c("pooled", "separate"),
+  k = 4
 )
 }
 \arguments{
@@ -18,13 +20,17 @@ asym_cond_qda_fit(
 
 \item{id}{A character for the column name which stores id.}
 
-\item{Ear1_mark}{A character shows the last several letters to denote ear 1 label.}
+\item{Y1}{A character shows the column name of label 1.}
 
-\item{Ear2_mark}{A character shows the last several letters to denote ear 2 label.}
+\item{Y2}{A character shows the column name of label 2.}
 
-\item{Y}{A character denotes the first several letters of label.}
+\item{X1}{A string of characters for the column names of predictor set 1.}
 
-\item{number_features}{Number of features (covariates) to fit the model for each ear.}
+\item{X2}{A string of characters for the column names of predictor set 2.}
+
+\item{method}{The method user set to estimate mean and covariance parameters.}
+
+\item{k}{The number of classifications.}
 }
 \value{
 A list to store model parameters.
@@ -37,7 +43,8 @@ library(dplyr)
 library(mvtnorm)
 data(HearingLoss_simu)
 fit <- asym_cond_qda_fit(HearingLoss_simu,
-                  id = "id")
+                  id = "id",
+                  method = "pooled")
 test_data_X <- HearingLoss_simu[1,] \%>\% dplyr::select(-"Label_1", -"Label_2",-"id")
 asym_cond_qda_predict(fit, test_data_X)
 }
