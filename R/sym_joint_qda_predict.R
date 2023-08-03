@@ -91,10 +91,10 @@ sym_joint_qda_predict <- function(qda_model = NA,
     predict_ear_2 <- ceiling(index / qda_model$k)
     if (predict_ear_1 == 0) predict_ear_1 <- qda_model$k
 
-    prediction_2 <- paste(predict_ear_1, predict_ear_2, sep = "_")
+    prediction_2 <- paste(predict_ear_2, predict_ear_1, sep = "_")
     P_2 <- max(probability_log)
 
     if (P_1 >= P_2) {return (prediction_1)}
-    else {return(prediction_2)}
+    else {return (prediction_2)}
   }
 }
