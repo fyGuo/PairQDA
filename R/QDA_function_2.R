@@ -21,6 +21,8 @@ QDA_function_2 <- function(x, prior = prior,
       dmvnorm(x, mu_list_2[[i]], sigma = var_list_2[[i]], log = T) +
       as.numeric(log(prior[i]))
   }
+  # here we convert p into posterior probabilities so sum(p[i]) = 1
+  post_p[i] <- exp(post_p[i])/sum(exp(post_p[i]))
   type <- which(post_p == max(post_p))
   list(type,
        post_p) %>%

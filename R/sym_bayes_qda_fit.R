@@ -181,6 +181,9 @@ sym_bayes_qda_fit_Shuffling <- function(train_data,
     train_data_ear2 <- train_data_s[,c(id, Y2, X2)] %>% dplyr::mutate(ear = 2)
     colnames(train_data_ear2) <- c("id", "Y", paste("S", 1:length(X2), sep =""), "ear")
 
+    # create a pooled dataset
+    train_data_pooled <- rbind(train_data_ear1, train_data_ear2)
+
     # prior weights
     ear1_weight <- train_data_ear1 %>%
       summarise(prop1 = mean(.data[["Y"]] == 1, na.rm = T),
@@ -190,13 +193,6 @@ sym_bayes_qda_fit_Shuffling <- function(train_data,
 
     prior_ear1 <- prior_ear1 + ear1_weight
 
-
-    # excluding rows with missing values
-    train_data_ear1 <- train_data_ear1[stats::complete.cases(train_data_ear1),]
-    train_data_ear2 <- train_data_ear2[stats::complete.cases(train_data_ear2),]
-
-    # create a pooled dataset
-    train_data_pooled <- rbind(train_data_ear1, train_data_ear2)
 
 
     weight_ear1_conditional_ear2 <-

@@ -52,7 +52,6 @@ sym_bayes_qda_predict <- function(qda_model = NA,
   predict_ear_1 <- numeric(iter)
   predict_ear_2 <- numeric(iter)
 
-
   for (i in 1:iter) {
     j <- max(i - 1, 1)
     if (i == 1) {
@@ -79,36 +78,20 @@ sym_bayes_qda_predict <- function(qda_model = NA,
     predict_ear_2[[i]] <- which.max(predict_ear_2_prob)
 
 
-    if(i> 1 & predict_ear_1[[j]] == predict_ear_1[[i]] &
-       predict_ear_2[[j]] == predict_ear_2[[i]]) {break}
-  }
-  if (i < iter) {
-    predicted_valid_1 <- paste(predict_ear_1[[i]], predict_ear_2[[i]], sep = "_")
-  } else {
-    vector_prediction <- paste(predict_ear_1, predict_ear_2, sep = "_")
-    vector_prediction %>% table %>% sort(decreasing = T)
-    predicted_valid_1 <- vector_prediction[1]
+    if(i> 1 & predict_ear_1[[j]] == predict_ear_1[[i]] & predict_ear_2[[j]] == predict_ear_2[[i]]) {break}
   }
 
-  predicted_ear1 <- stringr::str_sub(predicted_valid_1, 1, 1) %>% as.numeric()
-  predicted_ear2 <- stringr::str_sub(predicted_valid_1, 3, 3) %>% as.numeric()
+    prediction1 <- paste(predict_ear_1[[i]], predict_ear_2[[i]], sep = "_")
 
-  P1 <- QDA_function(test_data_ear1_X ,
-                     prior = as.numeric(qda_model$prior_ear1_conditional_ear2[,predict_ear_2[[i-1]]]),
-                     mu_list = qda_model$mu_list_ear1,
-                     var_list = qda_model$var_list_ear1)[[2]][predicted_ear1] +
-    QDA_function( test_data_ear2_X,
-                  prior = as.numeric(qda_model$prior_ear2_conditional_ear1[predict_ear_1[[i]],]),
-                  mu_list = qda_model$mu_list_ear2,
-                  var_list = qda_model$var_list_ear2)[[2]][predicted_ear2]
+    # here we use the last probabilities indexed by
+    P1 <- max(predict_ear_1_prob) * max(predict_ear_2_prob)
 
+    # output the predicition if there is no shuffling
+    if (Shuffle == FALSE) {return (prediction1)}
 
-
-
-  if (Shuffle == FALSE) {return (predicted_valid_1)}
-
-  # repead the above process if shuffle = TRUE
-  else {
+    # repead the above process if shuffle = TRUE
+    else {
+    # switch ear 1 and ear 2 data
     test_data_ear1_X <- test_data_X[,X2]
 
     colnames(test_data_ear1_X) <- c(paste("S", 1:length(X2), sep =""))
@@ -151,27 +134,14 @@ sym_bayes_qda_predict <- function(qda_model = NA,
       if(i> 1 & predict_ear_1[[j]] == predict_ear_1[[i]] &
          predict_ear_2[[j]] == predict_ear_2[[i]]) {break}
     }
-    if (i < iter) {
-      predicted_valid_2 <- paste(predict_ear_1[[i]], predict_ear_2[[i]], sep = "_")
-    } else {
-      vector_prediction <- paste(predict_ear_1, predict_ear_2, sep = "_")
-      vector_prediction %>% table %>% sort(decreasing = T)
-      predicted_valid_2 <- vector_prediction[1]
-    }
+      # here we assign ear_2 to the first position and ear_1 to the second positition so
+      # the output prediction follows the same order as the input
+      prediction2 <- paste(predict_ear_2[[i]], predict_ear_1[[i]], sep = "_")
 
-    predicted_ear1 <- stringr::str_sub(predicted_valid_2, 1, 1) %>% as.numeric()
-    predicted_ear2 <- stringr::str_sub(predicted_valid_2, 3, 3) %>% as.numeric()
 
-    P2 <- QDA_function(test_data_ear1_X ,
-                       prior = as.numeric(qda_model$prior_ear1_conditional_ear2[,predict_ear_2[[i-1]]]),
-                       mu_list = qda_model$mu_list_ear1,
-                       var_list = qda_model$var_list_ear1)[[2]][predicted_ear1] +
-      QDA_function(test_data_ear2_X,
-                    prior = as.numeric(qda_model$prior_ear2_conditional_ear1[predict_ear_1[[i]],]),
-                    mu_list = qda_model$mu_list_ear2,
-                    var_list = qda_model$var_list_ear2)[[2]][predicted_ear2]
-
-    if (P1 >= P2) return(predicted_valid_1)
-    else {paste(predict_ear_2, predict_ear_1, sep = "_")}
+      P2 <- max(predict_ear_1_prob) * max(predict_ear_2_prob)
+      # check which order gives us the higher probability
+      if (P1 >= P2) {return(prediction1)}
+      else {return(prediction2)}
   }
 }
