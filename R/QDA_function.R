@@ -17,7 +17,7 @@ QDA_function <- function(x, prior = prior,
 
   }
   # here we convert p into posterior probabilities so sum(p[i]) = 1
-  post_p[i] <- exp(post_p[i])/sum(exp(post_p[i]))
+  post_p <- exp(post_p)/sum(exp(post_p))
 
   type <- which(post_p == max(post_p))
   list(type,
