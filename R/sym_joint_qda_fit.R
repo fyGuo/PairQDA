@@ -170,7 +170,7 @@ sym_joint_qda_fit_Shuffling  <- function(train_data,
     colnames(train_data_ear2) <- c("id", "Y", paste("S", 1:length(X2), sep =""), "ear")
 
     # prior weights
-    weight_matrix <- +
+    weight_matrix <-
       table(train_data_ear1$Y, train_data_ear2$Y, dnn = c("Ear1", "Ear2"))  %>%
       prop.table() %>%
       as.matrix()

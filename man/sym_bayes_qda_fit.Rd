@@ -2,7 +2,7 @@
 % Please edit documentation in R/sym_bayes_qda_fit.R
 \name{sym_bayes_qda_fit}
 \alias{sym_bayes_qda_fit}
-\title{Symmetric Bayesian QDA (fitting model)}
+\title{Fitting Symmetric Bayesian QDA model}
 \usage{
 sym_bayes_qda_fit(
   train_data,
@@ -11,8 +11,11 @@ sym_bayes_qda_fit(
   Y2 = "Label_2",
   X1 = c("T500_1", "T1K_1", "T2K_1", "T3K_1", "T4K_1", "T6K_1", "T8K_1"),
   X2 = c("T500_2", "T1K_2", "T2K_2", "T3K_2", "T4K_2", "T6K_2", "T8K_2"),
-  method = c("pooled", "separate"),
-  k = 4
+  k = 4,
+  Shuffle = TRUE,
+  seed = 123,
+  S = 10,
+  method = c("pooled", "separate")
 )
 }
 \arguments{
@@ -28,24 +31,34 @@ sym_bayes_qda_fit(
 
 \item{X2}{A string of characters for the column names of predictor set 2.}
 
-\item{method}{The method user set to estimate mean and covariance parameters.}
-
 \item{k}{The number of classifications.}
+
+\item{Shuffle}{Whether to use data shuffling before the QDA methods.}
+
+\item{seed}{The random seed. Only applicable when using Shuffling.}
+
+\item{S}{The number of shuffles. Only applicable when using Shuffling.}
+
+\item{method}{The estimation method. Only applicable when not using Shuffling.}
 }
 \value{
 A list to store model parameters.
 }
 \description{
-Symmetric Bayesian QDA (fitting model)
+Fitting Symmetric Bayesian QDA model
 }
 \examples{
 library(dplyr)
 library(mvtnorm)
-library(MASS)
 data(HearingLoss_simu)
+#Use the Shuffling method
 fit <- sym_bayes_qda_fit(HearingLoss_simu,
                   id = "id",
+                  Shuffle = TRUE)
+
+#Use the Non-shuffling method
+fit <- sym_bayes_qda_fit(HearingLoss_simu,
+                  id = "id",
+                  Shuffle = FALSE,
                   method = "pooled")
-test_data_X <- HearingLoss_simu[1,] \%>\% dplyr::select(-"Label_1", -"Label_2",-"id")
-sym_bayes_qda_predict(fit, test_data_X)
 }
