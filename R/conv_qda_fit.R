@@ -46,6 +46,21 @@ conv_qda_fit <- function(train_data,
   colnames(train_data_ear2) <- c(paste0("S", 1:length(X1)), "Y")
 
 
+  # estimate the prior weights
+  prior_ear1 <- train_data_ear1 %>%
+    summarise(prop1 = mean(.data[["Y"]] == 1, na.rm = T),
+              prop2 = mean(.data[["Y"]] == 2, na.rm = T),
+              prop3 = mean(.data[["Y"]] == 3, na.rm = T),
+              prop4 = mean(.data[["Y"]] == 4, na.rm = T)) %>%
+    as.numeric()
+
+  prior_ear2 <- train_data_ear2 %>%
+    summarise(prop1 = mean(.data[["Y"]] == 1, na.rm = T),
+              prop2 = mean(.data[["Y"]] == 2, na.rm = T),
+              prop3 = mean(.data[["Y"]] == 3, na.rm = T),
+              prop4 = mean(.data[["Y"]] == 4, na.rm = T)) %>%
+    as.numeric()
+
   if (method == "pooled") {
     # if the user set "pooled" method to estimate mean and covariance parameters
     # then two ears will be combined together
@@ -72,6 +87,8 @@ conv_qda_fit <- function(train_data,
   }
 
   parameters <- list(qda1 = qda1,
-                     qda2 = qda2)
+                     qda2 = qda2,
+                     prior_ear1 = prior_ear1,
+                     prior_ear2 = prior_ear2)
   return(parameters)
 }

@@ -30,9 +30,11 @@ conv_qda_predict <- function(qda_model = NA,
 
   predict.qda <- getFromNamespace("predict.qda","MASS")
 
-  pred_ear1 <- predict.qda(qda_model$qda1, test_data_X[,X1])$class
+  pred_ear1 <- predict.qda(qda_model$qda1, test_data_X[,X1],
+                          prior = qda_model$prior_ear1)$class
 
-  pred_ear2 <- predict.qda(qda_model$qda2, test_data_X[,X2])$class
+  pred_ear2 <- predict.qda(qda_model$qda2, test_data_X[,X2],
+                           prior = qda_model$prior_ear2)$class
 
   prediction <- paste(pred_ear1, pred_ear2, sep = "_")
   return(prediction)

@@ -34,7 +34,6 @@ Symmetric Bayesian QDA (predicting new phenotypes)
 }
 \examples{
 library(dplyr)
-library(stringr)
 library(mvtnorm)
 data(HearingLoss_simu)
 #Use the Shuffling method

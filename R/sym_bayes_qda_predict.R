@@ -1,7 +1,7 @@
 #' Symmetric Bayesian QDA (predicting new phenotypes)
 #' @import dplyr
 #' @import mvtnorm
-#' @importFrom stringr str_sub
+#'
 #' @param qda_model A list output from sym_joint_qda_fit
 #' @param test_data_X A vector of predictors from the test data
 #' @param X1 A string of characters for the column names of predictor set 1.
@@ -14,7 +14,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(stringr)
 #' library(mvtnorm)
 #' data(HearingLoss_simu)
 #' #Use the Shuffling method
