@@ -17,7 +17,8 @@
 #' data(HearingLoss_simu)
 #' fit <- conv_qda_fit(HearingLoss_simu,
 #'                   id = "id",
-#'                   method = "separate")
+#'                   method = "separate",
+#'                   k = 4)
 #' test_data_X <- HearingLoss_simu[1,] %>% dplyr::select(-"Label_1", -"Label_2",-"id")
 #' conv_qda_predict(fit, test_data_X)
 
@@ -28,14 +29,26 @@ conv_qda_predict <- function(qda_model = NA,
                              X2 = c("T500_2", "T1K_2", "T2K_2", "T3K_2",
                                     "T4K_2", "T6K_2", "T8K_2")) {
 
-  predict.qda <- getFromNamespace("predict.qda","MASS")
+  test_data_ear1_X <- test_data_X[,X1]
 
-  pred_ear1 <- predict.qda(qda_model$qda1, test_data_X[,X1],
-                          prior = qda_model$prior_ear1)$class
+  colnames(test_data_ear1_X) <- c(paste("S", 1:length(X1), sep =""))
 
-  pred_ear2 <- predict.qda(qda_model$qda2, test_data_X[,X2],
-                           prior = qda_model$prior_ear2)$class
+  test_data_ear2_X <-test_data_X[,X2]
 
-  prediction <- paste(pred_ear1, pred_ear2, sep = "_")
-  return(prediction)
-}
+  colnames(test_data_ear2_X) <- c(paste("S", 1:length(X2), sep =""))
+
+
+  predict_ear_1<- QDA_function(test_data_ear1_X,
+                                 prior = qda_model$prior_ear1,
+                                 mu_list = qda_model$mu_list_ear1,
+                                 var_list = qda_model$var_list_ear1)[[1]]
+
+  predict_ear_2 <- QDA_function(test_data_ear2_X,
+                                prior = qda_model$prior_ear2,
+                                mu_list = qda_model$mu_list_ear2,
+                                var_list = qda_model$var_list_ear2)[[1]]
+
+
+  predicted_valid <- paste(predict_ear_1, predict_ear_2, sep = "_")
+
+  predicted_valid%>% return()}

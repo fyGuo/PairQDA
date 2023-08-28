@@ -32,7 +32,8 @@ library(mvtnorm)
 data(HearingLoss_simu)
 fit <- conv_qda_fit(HearingLoss_simu,
                   id = "id",
-                  method = "separate")
+                  method = "separate",
+                  k = 4)
 test_data_X <- HearingLoss_simu[1,] \%>\% dplyr::select(-"Label_1", -"Label_2",-"id")
 conv_qda_predict(fit, test_data_X)
 }

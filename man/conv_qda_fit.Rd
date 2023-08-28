@@ -11,7 +11,8 @@ conv_qda_fit(
   Y2 = "Label_2",
   X1 = c("T500_1", "T1K_1", "T2K_1", "T3K_1", "T4K_1", "T6K_1", "T8K_1"),
   X2 = c("T500_2", "T1K_2", "T2K_2", "T3K_2", "T4K_2", "T6K_2", "T8K_2"),
-  method = c("pooled", "separate")
+  method = c("pooled", "separate"),
+  k
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ conv_qda_fit(
 \item{X2}{A string of characters for the column names of predictor set 2.}
 
 \item{method}{The method user set to estimate mean and covariance parameters.}
+
+\item{k}{The number of classifications.}
 }
 \value{
 A list to store model parameters.
@@ -41,7 +44,8 @@ library(mvtnorm)
 data(HearingLoss_simu)
 fit <- conv_qda_fit(HearingLoss_simu,
                   id = "id",
-                  method = "separate")
+                  method = "separate",
+                  k = 4)
 test_data_X <- HearingLoss_simu[1,] \%>\% dplyr::select(-"Label_1", -"Label_2",-"id")
 conv_qda_predict(fit, test_data_X)
 }
