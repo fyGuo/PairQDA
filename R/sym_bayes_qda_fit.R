@@ -128,7 +128,6 @@ sym_bayes_qda_fit_NoShuffling <- function(train_data,
 #' @param X2 A string of characters for the column names of predictor set 2.
 #' @param k The number of classifications.
 #' @param S The number of shuffles.
-#' @param seed The random seed.
 #'
 #' @returns A list to store model parameters.
 #'
@@ -144,10 +143,8 @@ sym_bayes_qda_fit_Shuffling <- function(train_data,
                                         X2 = c("T500_2", "T1K_2", "T2K_2", "T3K_2",
                                                "T4K_2", "T6K_2", "T8K_2"),
                                         k = 4,
-                                        S = 10,
-                                        seed) {
+                                        S = 10) {
 
-  set.seed(seed)
 
   prior_ear1 <- numeric(length = k)
   mu_list_ear1 <- mu_list_ear2 <- vector(mode = "list", length = k)
@@ -261,7 +258,6 @@ sym_bayes_qda_fit_Shuffling <- function(train_data,
 #' @param X2 A string of characters for the column names of predictor set 2.
 #' @param k The number of classifications.
 #' @param Shuffle Whether to use data shuffling before the QDA methods.
-#' @param seed The random seed. Only applicable when using Shuffling.
 #' @param S The number of shuffles. Only applicable when using Shuffling.
 #' @param method The estimation method. Only applicable when not using Shuffling.
 #' @returns A list to store model parameters.
@@ -292,13 +288,12 @@ sym_bayes_qda_fit  <- function(train_data,
                                       "T4K_2", "T6K_2", "T8K_2"),
                                k = 4,
                                Shuffle = TRUE,
-                               seed = 123,
                                S = 10,
                                method = c("pooled", "separate")) {
 
   if (Shuffle) {sym_bayes_qda_fit_Shuffling(
     train_data = train_data, id = id, Y1 = Y1, Y2 = Y2, X1 = X1,
-    X2 = X2, k = k, seed = seed, S = S
+    X2 = X2, k = k,  S = S
   )}
 
   else {sym_bayes_qda_fit_NoShuffling(
