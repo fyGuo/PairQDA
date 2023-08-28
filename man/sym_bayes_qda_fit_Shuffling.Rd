@@ -12,8 +12,7 @@ sym_bayes_qda_fit_Shuffling(
   X1 = c("T500_1", "T1K_1", "T2K_1", "T3K_1", "T4K_1", "T6K_1", "T8K_1"),
   X2 = c("T500_2", "T1K_2", "T2K_2", "T3K_2", "T4K_2", "T6K_2", "T8K_2"),
   k = 4,
-  S = 10,
-  seed
+  S = 10
 )
 }
 \arguments{
@@ -32,8 +31,6 @@ sym_bayes_qda_fit_Shuffling(
 \item{k}{The number of classifications.}
 
 \item{S}{The number of shuffles.}
-
-\item{seed}{The random seed.}
 }
 \value{
 A list to store model parameters.

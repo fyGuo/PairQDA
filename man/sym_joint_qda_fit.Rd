@@ -13,7 +13,6 @@ sym_joint_qda_fit(
   X2 = c("T500_2", "T1K_2", "T2K_2", "T3K_2", "T4K_2", "T6K_2", "T8K_2"),
   k = 4,
   Shuffle = TRUE,
-  seed = 123,
   S = 10,
   method = c("pooled", "separate")
 )
@@ -34,8 +33,6 @@ sym_joint_qda_fit(
 \item{k}{The number of classifications.}
 
 \item{Shuffle}{Whether to use data shuffling before the QDA methods.}
-
-\item{seed}{The random seed. Only applicable when using Shuffling.}
 
 \item{S}{The number of shuffles. Only applicable when using Shuffling.}
 
