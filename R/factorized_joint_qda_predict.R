@@ -1,4 +1,4 @@
-#' Asymmetric Marginal QDA (predicting new phenotypes)
+#' Factorized Joint QDA (predicting new phenotypes)
 #' @import dplyr
 #' @import mvtnorm
 #'
@@ -15,14 +15,14 @@
 #' library(dplyr)
 #' library(mvtnorm)
 #' data(HearingLoss_simu)
-#' fit <- asym_marg_qda_fit(HearingLoss_simu,
+#' fit <- factorized_joint_qda_fit(HearingLoss_simu,
 #'                   id = "id",
 #'                   method = "pooled")
 #' test_data_X <- HearingLoss_simu[1,] %>% dplyr::select(-"Label_1", -"Label_2",-"id")
-#' asym_marg_qda_predict(fit, test_data_X)
+#' factorized_joint_qda_predict(fit, test_data_X)
 
 
-asym_marg_qda_predict<- function(qda_model = NA,
+factorized_joint_qda_predict<- function(qda_model = NA,
                                  test_data_X = NA,
                                  X1 = c("T500_1", "T1K_1", "T2K_1", "T3K_1",
                                         "T4K_1", "T6K_1", "T8K_1"),

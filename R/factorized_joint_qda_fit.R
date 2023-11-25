@@ -1,4 +1,4 @@
-#' Asymmetric Marginal QDA (fitting model)
+#' Factorized Joint QDA (fitting model)
 #' @import dplyr
 #'
 #' @param train_data A data.frame for the training dataset
@@ -17,13 +17,13 @@
 #' library(dplyr)
 #' library(mvtnorm)
 #' data(HearingLoss_simu)
-#' fit <- asym_marg_qda_fit(HearingLoss_simu,
+#' fit <- factorized_joint_qda_fit(HearingLoss_simu,
 #'                   id = "id",
 #'                   method = "pooled")
 #' test_data_X <- HearingLoss_simu[1,] %>% dplyr::select(-"Label_1", -"Label_2",-"id")
-#' asym_marg_qda_predict(fit, test_data_X)
+#' factorized_joint_qda_predict(fit, test_data_X)
 
-asym_marg_qda_fit <- function(train_data,
+factorized_joint_qda_fit <- function(train_data,
                               id = "SID",
                               Y1 = "Label_1",
                               Y2 = "Label_2",
