@@ -1,17 +1,18 @@
 Package: PairQDA
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
+Title: Modified Quadratic Discriminant Analysis (Qda) Algorithms for
+        Predictions in Paired Data, Such as Audiometric Data
+Version: 1.0.0
 Author: Fuyu Guo
 Maintainer: Fuyu Guo <fuyuguo@hsph.harvard.edu>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: We developod new QDA methods for predictions in paired data, such as audiometric data. We implements "conv_qda" which is the conventional QDA method. We also created three modified QDA methods, including "Factorized Joint QDA", "Simplified Joint QDA", and "Simplified Bayesian QDA".
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 2.10)
 Imports: stats, dplyr, mvtnorm, MASS, utils
-RoxygenNote: 7.2.1
+URL: https://github.com/fyGuo/PairQDA
+RoxygenNote: 7.2.3
 NeedsCompilation: no
-Packaged: 2023-07-20 10:19:02 UTC; fuyuguo
-Built: R 4.2.2; ; 2023-07-20 10:22:43 UTC; unix
+Packaged: 2023-11-25 01:30:29 UTC; fuyuguo
+Built: R 4.3.1; ; 2023-11-25 01:30:46 UTC; unix

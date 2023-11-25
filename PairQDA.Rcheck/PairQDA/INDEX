@@ -5,13 +5,32 @@ QDA_function_2          QDA-2 function for conditional on two
 asym_cond_qda_fit       Asymmetric Conditional QDA (fitting the model)
 asym_cond_qda_predict   Asymmetric Conditional QDA (predicting new
                         phenotypes)
-asym_marg_qda_fit       Asymmetric Marginal QDA (fitting model)
-asym_marg_qda_predict   Asymmetric Marginal QDA (predicting new
-                        phenotypes)
 conv_qda_fit            Conventional QDA (fitting model)
 conv_qda_predict        Conventional QDA (predicting new phenotypes)
-sym_bayes_qda_fit       Symmetric Bayesian QDA (fitting model)
-sym_bayes_qda_predict   Symmetric Bayesian QDA (predicting new
+factorized_joint_qda_fit
+                        Factorized Joint QDA (fitting model)
+factorized_joint_qda_predict
+                        Factorized Joint QDA (predicting new
                         phenotypes)
-sym_joint_qda_fit       Symmetric Joint QDA (fitting model)
-sym_joint_qda_predict   Symmetric Joint QDA (predicting new phenotypes)
+simplified_bayes_qda_fit
+                        Fitting Simplified Bayesian QDA model
+simplified_bayes_qda_fit_NoShuffling
+                        Fitting Simplified Bayesian QDA model (No
+                        shuffling version)
+simplified_bayes_qda_fit_Shuffling
+                        Fitting Simplified Bayesian QDA model
+                        (Shuffling version)
+simplified_bayes_qda_predict
+                        Simplified Bayesian QDA (predicting new
+                        phenotypes)
+simplified_joint_qda_fit
+                        Fitting Simplified Joint QDA model
+simplified_joint_qda_fit_NoShuffling
+                        Fitting Simplified Joint QDA model (No
+                        shuffling version)
+simplified_joint_qda_fit_Shuffling
+                        Fitting Simplified Joint QDA model (shuffling
+                        version)
+simplified_joint_qda_predict
+                        Simplified Joint QDA (predicting new
+                        phenotypes)
