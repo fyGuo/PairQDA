@@ -1,4 +1,4 @@
-#' Fitting Symmetric Joint QDA model (No shuffling version)
+#' Fitting Simplified Joint QDA model (No shuffling version)
 #' @import dplyr
 #'
 #' @param train_data A data.frame for the training dataset
@@ -14,7 +14,7 @@
 #' @export
 
 
-sym_joint_qda_fit_NoShuffling <- function(train_data,
+simplified_joint_qda_fit_NoShuffling <- function(train_data,
                           id = "SID",
                           Y1 = "Label_1",
                           Y2 = "Label_2",
@@ -108,7 +108,7 @@ sym_joint_qda_fit_NoShuffling <- function(train_data,
 
 
 
-#' Fitting Symmetric Joint QDA model (shuffling version)
+#' Fitting Simplified Joint QDA model (shuffling version)
 #' @import dplyr
 #'
 #' @param train_data A data.frame for the training dataset
@@ -124,7 +124,7 @@ sym_joint_qda_fit_NoShuffling <- function(train_data,
 #' @export
 
 
-sym_joint_qda_fit_Shuffling  <- function(train_data,
+simplified_joint_qda_fit_Shuffling  <- function(train_data,
                               id = "SID",
                               Y1 = "Label_1",
                               Y2 = "Label_2",
@@ -219,7 +219,7 @@ sym_joint_qda_fit_Shuffling  <- function(train_data,
 }
 
 
-#' Fitting Symmetric Joint QDA model
+#' Fitting Simplified Joint QDA model
 #' @import dplyr
 #'
 #' @param train_data A data.frame for the training dataset
@@ -241,17 +241,17 @@ sym_joint_qda_fit_Shuffling  <- function(train_data,
 #' library(mvtnorm)
 #' data(HearingLoss_simu)
 #' #Use the Shuffling method
-#' fit <- sym_joint_qda_fit(HearingLoss_simu,
+#' fit <- simplified_joint_qda_fit(HearingLoss_simu,
 #'                   id = "id",
 #'                   Shuffle = TRUE)
 #'
 #' #Use the Non-shuffling method
-#' fit <- sym_joint_qda_fit(HearingLoss_simu,
+#' fit <- simplified_joint_qda_fit(HearingLoss_simu,
 #'                   id = "id",
 #'                   Shuffle = FALSE,
 #'                   method = "pooled")
 
-sym_joint_qda_fit  <- function(train_data,
+simplified_joint_qda_fit  <- function(train_data,
                                id = "SID",
                                Y1 = "Label_1",
                                Y2 = "Label_2",
@@ -264,12 +264,12 @@ sym_joint_qda_fit  <- function(train_data,
                               S = 10,
                               method = c("pooled", "separate")) {
 
-  if (Shuffle) {sym_joint_qda_fit_Shuffling(
+  if (Shuffle) {simplified_joint_qda_fit_Shuffling(
     train_data = train_data, id = id, Y1 = Y1, Y2 = Y2, X1 = X1,
     X2 = X2, k = k, S = S
   )}
 
-  else {sym_joint_qda_fit_NoShuffling(
+  else {simplified_joint_qda_fit_NoShuffling(
     train_data = train_data, id = id, Y1 = Y1, Y2 = Y2, X1 = X1,
     X2 = X2, k = k, method = method)}
 }

@@ -1,4 +1,4 @@
-#' Symmetric Joint QDA (predicting new phenotypes)
+#' Simplified Joint QDA (predicting new phenotypes)
 #' @import dplyr
 #' @import mvtnorm
 #'
@@ -16,21 +16,21 @@
 #' library(mvtnorm)
 #' data(HearingLoss_simu)
 #' #Use the Shuffling method
-#' fit <- sym_joint_qda_fit(HearingLoss_simu,
+#' fit <- simplified_joint_qda_fit(HearingLoss_simu,
 #'                   id = "id",
 #'                   Shuffle = TRUE)
 #' test_data_X <- HearingLoss_simu[1,] %>% dplyr::select(-"Label_1", -"Label_2",-"id")
-#' sym_joint_qda_predict(fit, test_data_X, Shuffle = TRUE)
+#' simplified_joint_qda_predict(fit, test_data_X, Shuffle = TRUE)
 #'
 #' # Use the Non-Shuffling method
-#' fit <- sym_joint_qda_fit(HearingLoss_simu,
+#' fit <- simplified_joint_qda_fit(HearingLoss_simu,
 #'                   id = "id",
 #'                   Shuffle = FALSE,
 #'                   method = "pooled")
 #' test_data_X <- HearingLoss_simu[1,] %>% dplyr::select(-"Label_1", -"Label_2",-"id")
-#' sym_joint_qda_predict(fit, test_data_X, Shuffle = FALSE)
+#' simplified_joint_qda_predict(fit, test_data_X, Shuffle = FALSE)
 
-sym_joint_qda_predict <- function(qda_model = NA,
+simplified_joint_qda_predict <- function(qda_model = NA,
                               test_data_X = NA,
                               X1 = c("T500_1", "T1K_1", "T2K_1", "T3K_1",
                                      "T4K_1", "T6K_1", "T8K_1"),
