@@ -1,10 +1,10 @@
 Package: PairQDA
 Type: Package
-Title: Modified Quadratic Discriminant Analysis (Qda) Algorithms for Predictions in Paired Data, Such as Audiometric Data
+Title: Modified Quadratic Discriminant Analysis (QDA) Algorithms for Predictions in Paired Data, Such as Audiometric Data
 Version: 1.0.0
 Author: Fuyu Guo
 Maintainer: Fuyu Guo <fuyuguo@hsph.harvard.edu>
-Description: We developod new QDA methods for predictions in paired data, such as audiometric data. We implements "conv_qda" which is the conventional QDA method. We also created three modified QDA methods, including "Factorized Joint QDA", "Simplified Joint QDA", and "Simplified Bayesian QDA".
+Description: We developed new QDA methods for predictions in paired data, such as audiometric data. We implements "conv_qda" which is the conventional QDA method. We also created three modified QDA methods, including "Factorized Joint QDA", "Simplified Joint QDA", and "Simplified Bayesian QDA".
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
