@@ -107,13 +107,13 @@ simplified_bayes_qda_predict <- function(qda_model = NA,
     for (i in 1:iter) {
       j <- max(i - 1, 1)
       if (i == 1) {
-        predict_ear_1_prob <- QDA_function(test_data_ear1_X[,paste("S", 1:7, sep ="")],
+        predict_ear_1_prob <- QDA_function(test_data_ear1_X[,paste("S", 1:length(X1), sep ="")],
                                            prior = qda_model$prior_ear1,
                                            mu_list = qda_model$mu_list_ear1,
                                            var_list = qda_model$var_list_ear1)[[2]]
         predict_ear_1[[i]] <- which.max(predict_ear_1_prob)
       } else {
-        predict_ear_1_prob <-QDA_function(test_data_ear1_X[,paste("S", 1:7, sep ="")],
+        predict_ear_1_prob <-QDA_function(test_data_ear1_X[,paste("S", 1:length(X1), sep ="")],
                                           prior = as.numeric(qda_model$prior_ear1_conditional_ear2[,predict_ear_2[[i-1]]]),
                                           mu_list = qda_model$mu_list_ear1,
                                           var_list = qda_model$var_list_ear1)[[2]]
@@ -122,7 +122,7 @@ simplified_bayes_qda_predict <- function(qda_model = NA,
       }
 
 
-      predict_ear_2_prob <- QDA_function( test_data_ear2_X[,paste("S", 1:7, sep ="")],
+      predict_ear_2_prob <- QDA_function( test_data_ear2_X[,paste("S", 1:length(X2), sep ="")],
                                           prior = as.numeric(qda_model$prior_ear2_conditional_ear1[predict_ear_1[[i]],]),
                                           mu_list = qda_model$mu_list_ear2,
                                           var_list = qda_model$var_list_ear2)[[2]]
